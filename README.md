@@ -1,54 +1,183 @@
-# React + TypeScript + Vite
+# Погодное приложение
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Это современное веб-приложение для отображения текущей погоды, почасового прогноза на 24 часа и прогноза на 5 дней с дневной и ночной температурой. Приложение использует API OpenWeatherMap для получения данных о погоде и построено с использованием React, TypeScript и TailwindCSS. Оно имеет адаптивный дизайн, всплывающие подсказки с нормами погодных параметров и модульную структуру кода для удобной поддержки.
 
-Currently, two official plugins are available:
+## Основные функции
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Текущая погода**: Отображение температуры, влажности, давления (в мм рт. ст.), скорости ветра с иконками и всплывающими подсказками, показывающими нормы и оценку ("хорошо" или "плохо").
+- **Почасовой прогноз**: Прогноз на 24 часа с температурой, погодой и иконкой, объединенной с описанием.
+- **5-дневный прогноз**: Прогноз с дневной и ночной температурой, иконками и описанием погоды.
+- **Адаптивный дизайн**: Поддержка мобильных устройств, планшетов и десктопов.
+- **Интерактивность**: Поиск погоды по городу, переключение между вкладками ("Текущая", "Почасовой", "5 дней").
+- **Модульная структура**: Код разделен на компоненты, хук и утилиты для читаемости и переиспользования.
 
-## Expanding the ESLint configuration
+## Технологии
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React**: Библиотека для построения UI.
+- **TypeScript**: Типизация для надежности кода.
+- **TailwindCSS**: Утилитарный CSS-фреймворк для стилизации.
+- **React Icons**: Иконки для погодных параметров (`react-icons/wi`).
+- **Vite**: Быстрый инструмент для сборки и разработки.
+- **OpenWeatherMap API**: Источник данных о погоде.
+- **Vercel**: Платформа для деплоя.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Установка и запуск
+
+### Требования
+
+- Node.js (версия 18 или выше)
+- npm или yarn
+- API ключ от [OpenWeatherMap](https://openweathermap.org/api)
+
+### Шаги
+
+1. **Клонируйте репозиторий**:
+
+   ```bash
+   git clone https://github.com/your-username/your-repo.git
+   cd your-repo
+   ```
+
+2. **Установите зависимости**:
+
+   ```bash
+   npm install
+   ```
+
+3. **Настройте переменные окружения**:
+
+   - Создайте файл `.env` в корне проекта:
+
+     ```plaintext
+     # .env
+     VITE_WEATHER_API_KEY=your_openweathermap_api_key
+     VITE_WEATHER_BASE_URL=https://api.openweathermap.org/data/2.5
+     ```
+
+   - Получите API ключ на [OpenWeatherMap](https://home.openweathermap.org/api_keys).
+   - Убедитесь, что `.env` добавлен в `.gitignore`:
+
+     ```plaintext
+     # .gitignore
+     .env
+     .env.local
+     .env.development
+     .env.production
+     ```
+
+4. **Запустите проект локально**:
+
+   ```bash
+   npm run dev
+   ```
+
+   - Откройте `http://localhost:5173` в браузере.
+
+5. **Сборка для продакшена**:
+
+   ```bash
+   npm run build
+   ```
+
+   - Сборка будет в папке `dist`.
+
+## Деплой на Vercel
+
+1. **Подключите репозиторий**:
+
+   - Зайдите на [Vercel](https://vercel.com), создайте новый проект и подключите ваш GitHub репозиторий.
+
+2. **Настройте переменные окружения**:
+
+   - В Vercel Dashboard → Ваш проект → `Settings` → `Environment Variables`.
+   - Добавьте:
+
+     ```plaintext
+     Name: VITE_WEATHER_API_KEY
+     Value: your_openweathermap_api_key
+     Environments: Production, Preview, Development
+
+     Name: VITE_WEATHER_BASE_URL
+     Value: https://api.openweathermap.org/data/2.5
+     Environments: Production, Preview, Development
+     ```
+
+3. **Деплой**:
+
+   - Пушьте изменения в репозиторий:
+
+     ```bash
+     git add .
+     git commit -m "Deploy to Vercel"
+     git push origin main
+     ```
+
+   - Vercel автоматически задеплоит приложение. URL будет доступен в Vercel Dashboard (`Domains`).
+
+## Структура проекта
+
+```
+src/
+├── components/
+│   ├── WeatherForm.tsx       # Форма для ввода города
+│   ├── WeatherTabs.tsx       # Вкладки для переключения режимов
+│   ├── CurrentWeather.tsx    # Текущая погода
+│   ├── HourlyForecast.tsx    # Почасовой прогноз
+│   ├── FiveDayForecast.tsx   # 5-дневный прогноз
+├── hooks/
+│   ├── useWeather.ts         # Хук для управления состоянием и запросами
+├── utils/
+│   ├── weatherApi.ts         # API-запросы к OpenWeatherMap
+│   ├── weatherService.ts     # Сервис для работы с API
+│   ├── weatherUtils.ts       # Утилиты (конвертация, подсказки, обработка данных)
+├── interface/
+│   ├── weatherApi.ts         # Интерфейсы для данных API
+├── Weather.tsx               # Главный компонент
+├── index.css                 # Глобальные стили (TailwindCSS, tooltip, анимации)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Использование
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. **Поиск города**:
+   - Введите название города (например, `Moscow`) и нажмите "Узнать".
+   - Приложение покажет текущую погоду, почасовой прогноз и прогноз на 5 дней.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+2. **Вкладки**:
+   - Переключайтесь между "Текущая", "Почасовой" и "5 дней" для просмотра разных данных.
+
+3. **Подсказки**:
+   - Наведите курсор на параметры текущей погоды (температура, влажность, давление, ветер), чтобы увидеть нормы и оценку.
+
+## Возможные улучшения
+
+- **Кэширование**: Сохранение данных в `localStorage` для сокращения API-запросов.
+- **График**: Добавить график температуры для почасового прогноза с помощью `recharts`.
+- **Динамический фон**: Изменение фона в зависимости от погоды (солнечный, дождливый).
+- **Исторические данные**: Интеграция с Visual Crossing API для отображения погоды за прошлые дни.
+- **Локализация**: Поддержка разных языков для API (`lang=en` для английского).
+- **Тестирование**: Написать тесты с `jest` и `react-testing-library`.
+
+## Устранение неполадок
+
+- **Ошибка 401 (Unauthorized)**:
+  - Проверьте, что `VITE_WEATHER_API_KEY` настроен в `.env` (локально) и в Vercel (для деплоя).
+  - Убедитесь, что ключ активен на [OpenWeatherMap](https://home.openweathermap.org/api_keys).
+
+- **Данные не загружаются**:
+  - Проверьте консоль браузера (F12 → Console) на ошибки.
+  - Убедитесь, что `VITE_WEATHER_BASE_URL` корректен.
+
+- **UI не отображается**:
+  - Проверьте, что зависимости установлены (`npm install`).
+  - Убедитесь, что TailwindCSS настроен в `index.css`.
+
+## Лицензия
+
+MIT License. См. [LICENSE](LICENSE) для деталей.
+
+## Контакты
+
+Если у вас есть вопросы или предложения, создайте issue в репозитории или свяжитесь с автором.
+
+---
+Сделано с ❤️ для удобного просмотра погоды!
