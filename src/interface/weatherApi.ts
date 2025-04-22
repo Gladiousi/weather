@@ -1,43 +1,58 @@
+import { FormEvent } from "react";
+
 interface WeatherData {
-    main: {
-        temp: number;
-        humidity: number;
-        pressure: number;
-    };
-    weather: {
-        description: string;
-        icon: string;
-    }[];
-    name: string;
-    sys: {
-        country: string;
-    };
-    wind: {
-        speed: number;
-    };
+  main: {
+    temp: number;
+    humidity: number;
+    pressure: number;
+  };
+  weather: {
+    description: string;
+    icon: string;
+  }[];
+  name: string;
+  sys: {
+    country: string;
+  };
+  wind: {
+    speed: number;
+  };
 }
 
 interface HourlyForecastData {
-    list: {
-      dt: number;
-      main: {
-        temp: number;
-        humidity: number;
-        pressure: number;
-      };
-      weather: {
-        description: string;
-        icon: string;
-      }[];
-      wind: {
-        speed: number;
-      };
-      dt_txt: string;
-    }[];
-    city: {
-      name: string;
-      country: string;
+  list: {
+    dt: number;
+    main: {
+      temp: number;
+      humidity: number;
+      pressure: number;
     };
-  }
+    weather: {
+      description: string;
+      icon: string;
+    }[];
+    wind: {
+      speed: number;
+    };
+    dt_txt: string;
+  }[];
+  city: {
+    name: string;
+    country: string;
+  };
+}
 
-export type { WeatherData, HourlyForecastData }
+interface CacheData {
+  weather: WeatherData;
+  hourlyForecast: HourlyForecastData;
+  timestamp: number;
+}
+
+interface WeatherFormProps {
+  city: string;
+  setCity: (city: string) => void;
+  handleSubmit: (e: FormEvent) => void;
+  isLoading: boolean;
+}
+
+export type { WeatherData, HourlyForecastData, CacheData, WeatherFormProps }

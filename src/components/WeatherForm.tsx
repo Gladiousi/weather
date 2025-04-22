@@ -1,23 +1,28 @@
-import { FormEvent } from "react";
+import { WeatherFormProps } from "../interface/weatherApi";
 
-interface WeatherFormProps {
-  city: string;
-  setCity: (city: string) => void;
-  handleSubmit: (e: FormEvent) => void;
-  isLoading: boolean;
-}
+const normalizeInput = (value: string) => {
+  const trimmed = value.trim().replace(/\s+/g, " ");
+  return trimmed.replace(/[<>"&']/g, "");
+};
 
 export const WeatherForm = ({ city, setCity, handleSubmit, isLoading }: WeatherFormProps) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const normalizedValue = normalizeInput(e.target.value);
+    setCity(normalizedValue);
+  };
+
   return (
     <form onSubmit={handleSubmit} className="mb-4 sm:mb-6">
       <div className="flex flex-col sm:flex-row gap-2">
         <input
           type="text"
           value={city}
-          onChange={(e) => setCity(e.target.value)}
+          onChange={handleInputChange}
           placeholder="Введите город"
           className="flex-1 p-3 bg-gray-100 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200 text-gray-800 text-sm sm:text-base"
           disabled={isLoading}
+          autoComplete="off"
+          onContextMenu={(e) => e.preventDefault()}
         />
         <button
           type="submit"
