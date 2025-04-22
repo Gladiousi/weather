@@ -16,7 +16,7 @@ export const CurrentWeather = ({ weather }: CurrentWeatherProps) => {
       </h3>
       <WeatherIcon className="mx-auto text-blue-500 text-5xl sm:text-6xl icon-hover" />
       <p className="text-base sm:text-lg capitalize text-gray-600 mb-4 text-center">{weather.weather[0].description}</p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4">
         <div
           className="flex items-center bg-blue-50 p-3 rounded-lg tooltip"
           data-tooltip={getTooltip("temperature", weather.main.temp)}
