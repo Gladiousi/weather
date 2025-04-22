@@ -1,27 +1,30 @@
 @import "tailwindcss";
 
-:root {
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-  overflow-x: hidden;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.wrapper {
+.weather-wrapper {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; 
   min-height: 100dvh;
   width: 100dvw;
+  overflow-y: auto; 
+  padding-top: env(safe-area-inset-top); 
 }
 
 .animate-fade-in {
@@ -36,6 +39,21 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+.hourly-card {
+  animation: slideIn 0.5s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
@@ -65,4 +83,18 @@
 
 .icon-hover:hover {
   transform: scale(1.2);
+}
+
+.weather-container {
+  transition: background 1s ease-in-out;
+}
+
+.container-scroll {
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.container-scroll::-webkit-scrollbar {
+  display: none;
 }

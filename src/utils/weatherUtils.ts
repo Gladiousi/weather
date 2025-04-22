@@ -1,4 +1,17 @@
 import { HourlyForecastData } from "../interface/weatherApi";
+import {
+  WiDaySunny,
+  WiNightClear,
+  WiDayCloudy,
+  WiNightCloudy,
+  WiCloud,
+  WiCloudy,
+  WiDayRain,
+  WiNightRain,
+  WiThunderstorm,
+  WiSnow,
+  WiFog,
+} from "react-icons/wi";
 
 export const convertPressureToMmHg = (hPa: number) => Math.round(hPa * 0.750062);
 
@@ -61,4 +74,51 @@ export const getFiveDayForecast = (hourlyForecast: HourlyForecastData | null) =>
     weather: data.weather,
     icon: data.icon,
   }));
+};
+
+export const getWeatherBackground = (weatherCode: string) => {
+  switch (weatherCode.replace(/[dn]$/, "")) {
+    case "01":
+      return "bg-gradient-to-br from-yellow-100 via-orange-100 to-pink-100";
+    case "02": 
+    case "03": 
+    case "04": 
+      return "bg-gradient-to-br from-gray-200 via-blue-200 to-gray-300";
+    case "09": 
+    case "10": 
+      return "bg-gradient-to-br from-blue-300 via-gray-400 to-blue-500";
+    case "11": 
+      return "bg-gradient-to-br from-gray-600 via-purple-600 to-gray-800";
+    case "13": 
+      return "bg-gradient-to-br from-blue-100 via-white to-blue-200";
+    case "50": 
+      return "bg-gradient-to-br from-gray-300 via-gray-400 to-gray-500";
+    default:
+      return "bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100";
+  }
+};
+
+export const getWeatherIcon = (weatherCode: string) => {
+  const isDay = weatherCode.endsWith("d");
+  switch (weatherCode.replace(/[dn]$/, "")) {
+    case "01": 
+      return isDay ? WiDaySunny : WiNightClear;
+    case "02": 
+      return isDay ? WiDayCloudy : WiNightCloudy;
+    case "03": 
+      return WiCloud;
+    case "04": 
+      return WiCloudy;
+    case "09": 
+    case "10": 
+      return isDay ? WiDayRain : WiNightRain;
+    case "11": 
+      return WiThunderstorm;
+    case "13": 
+      return WiSnow;
+    case "50": 
+      return WiFog;
+    default:
+      return WiCloud;
+  }
 };
