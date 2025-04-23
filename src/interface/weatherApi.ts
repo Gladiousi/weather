@@ -48,6 +48,18 @@ interface CacheData {
   timestamp: number;
 }
 
+interface CurrentWeatherProps {
+  weather: WeatherData;
+}
+
+interface FiveDayForecastProps {
+  hourlyForecast: HourlyForecastData;
+}
+
+interface HourlyForecastProps {
+  hourlyForecast: HourlyForecastData;
+}
+
 interface WeatherFormProps {
   city: string;
   setCity: (city: string) => void;
@@ -55,4 +67,9 @@ interface WeatherFormProps {
   isLoading: boolean;
 }
 
-export type { WeatherData, HourlyForecastData, CacheData, WeatherFormProps }
+interface WeatherTabsProps {
+  activeTab: "current" | "hourly" | "fiveDay";
+  setActiveTab: (tab: "current" | "hourly" | "fiveDay") => void;
+}
+
+export type { WeatherData, HourlyForecastData, CacheData, CurrentWeatherProps, WeatherFormProps, FiveDayForecastProps, HourlyForecastProps, WeatherTabsProps }

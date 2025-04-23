@@ -1,9 +1,7 @@
-import { HourlyForecastData } from "../interface/weatherApi";
+import { FiveDayForecastProps } from "../interface/weatherApi";
 import { getFiveDayForecast, getWeatherIcon } from "../utils/weatherUtils";
 
-interface FiveDayForecastProps {
-  hourlyForecast: HourlyForecastData;
-}
+
 
 export const FiveDayForecast = ({ hourlyForecast }: FiveDayForecastProps) => {
   return (

@@ -1,4 +1,4 @@
-import { HourlyForecastData } from "../interface/weatherApi";
+import { HourlyForecastProps } from "../interface/weatherApi";
 import { get24HourForecast, getWeatherIcon } from "../utils/weatherUtils";
 import {
   AreaChart,
@@ -9,10 +9,6 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-
-interface HourlyForecastProps {
-  hourlyForecast: HourlyForecastData;
-}
 
 export const HourlyForecast = ({ hourlyForecast }: HourlyForecastProps) => {
   const forecastData = get24HourForecast(hourlyForecast).map((item) => ({

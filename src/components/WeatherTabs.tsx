@@ -1,7 +1,4 @@
-interface WeatherTabsProps {
-  activeTab: "current" | "hourly" | "fiveDay";
-  setActiveTab: (tab: "current" | "hourly" | "fiveDay") => void;
-}
+import { WeatherTabsProps } from "../interface/weatherApi";
 
 export const WeatherTabs = ({ activeTab, setActiveTab }: WeatherTabsProps) => {
   const tabs = [
