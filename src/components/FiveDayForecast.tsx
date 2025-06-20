@@ -1,8 +1,6 @@
 import { FiveDayForecastProps } from "../interface/weatherApi";
 import { getFiveDayForecast, getWeatherIcon } from "../utils/weatherUtils";
 
-
-
 export const FiveDayForecast = ({ hourlyForecast }: FiveDayForecastProps) => {
   return (
     <div className="animate-fade-in">

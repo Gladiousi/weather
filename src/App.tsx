@@ -3,12 +3,16 @@ import { WeatherTabs } from "./components/WeatherTabs";
 import { CurrentWeather } from "./components/CurrentWeather";
 import { HourlyForecast } from "./components/HourlyForecast";
 import { FiveDayForecast } from "./components/FiveDayForecast";
+import { SolarActivity } from "./components/SolarActivity"; 
 import { useWeather } from "./hooks/useWeather";
 import { getWeatherBackground } from "./utils/weatherUtils";
+import { useState } from "react"; 
 
 const App = () => {
-  const { city, setCity, weather, hourlyForecast, error, isLoading, activeTab, setActiveTab, handleSubmit } =
+  const { city, setCity, weather, hourlyForecast, error, isLoading, handleSubmit } =
     useWeather();
+
+  const [activeTab, setActiveTab] = useState<"current" | "hourly" | "fiveDay" | "solarActivity">("current");
 
   const backgroundClass = weather
     ? getWeatherBackground(weather.weather[0].icon)
@@ -25,14 +29,16 @@ const App = () => {
             {error}
           </p>
         )}
-        {!weather && !hourlyForecast && !error && !isLoading && (
+        {activeTab === "current" && weather && <CurrentWeather weather={weather} />}
+        {activeTab === "hourly" && hourlyForecast && <HourlyForecast hourlyForecast={hourlyForecast} />}
+        {activeTab === "fiveDay" && hourlyForecast && <FiveDayForecast hourlyForecast={hourlyForecast} />}
+        {activeTab === "solarActivity" && <SolarActivity />} 
+
+        {!weather && !hourlyForecast && !error && !isLoading && activeTab !== "solarActivity" && (
           <p className="text-gray-600 text-center text-sm sm:text-base mb-4 animate-fade-in">
             Введите город, чтобы узнать погоду
           </p>
         )}
-        {activeTab === "current" && weather && <CurrentWeather weather={weather} />}
-        {activeTab === "hourly" && hourlyForecast && <HourlyForecast hourlyForecast={hourlyForecast} />}
-        {activeTab === "fiveDay" && hourlyForecast && <FiveDayForecast hourlyForecast={hourlyForecast} />}
       </div>
     </div>
   );

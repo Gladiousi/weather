@@ -2,8 +2,6 @@ import { CurrentWeatherProps } from "../interface/weatherApi";
 import { WiThermometer, WiHumidity, WiBarometer, WiStrongWind } from "react-icons/wi";
 import { convertPressureToMmHg, getTooltip, getWeatherIcon } from "../utils/weatherUtils";
 
-
-
 export const CurrentWeather = ({ weather }: CurrentWeatherProps) => {
   const WeatherIcon = getWeatherIcon(weather.weather[0].icon);
 
