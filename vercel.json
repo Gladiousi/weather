@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/xras/:path*",
+      "destination": "https://xras.ru/:path*"
+    }
+  ]
+}
