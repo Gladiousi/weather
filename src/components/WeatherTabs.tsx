@@ -10,7 +10,7 @@ export const WeatherTabs: React.FC<WeatherTabsProps> = ({ activeTab, setActiveTa
   ];
 
   return (
-    <div className="flex flex-nowrap overflow-auto md:overflow-hidden justify-between items-center bg-gray-100/60 backdrop-blur-md rounded-xl mb-6 gap-2 p-1.5 px-2 shadow-inner">
+    <div className="flex flex-nowrap overflow-auto justify-between items-center bg-gray-100/60 backdrop-blur-md rounded-xl mb-6 gap-2 p-1.5 px-2 shadow-inner">
       {tabs.map((tab) => (
         <button
           key={tab.id}
