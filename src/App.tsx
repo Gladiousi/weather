@@ -37,7 +37,7 @@ const App = () => {
         {!weather && !hourlyForecast && !error && !isLoading && activeTab !== "solarActivity" && (
           <p className="text-gray-600 text-center text-sm sm:text-base mb-4 animate-fade-in">
             Введите город, чтобы узнать погоду <br />
-            А если хотите узнать более точный <br /> прогноз магнитных бурь - смотрите подсказку
+            А если хотите узнать более точный <br /> прогноз магнитных бурь - <a href="https://xras.ru/magnetic_storms.html" className="text-indigo-700 underline">смотрите подсказку</a>
           </p>
         )}
       </div>
