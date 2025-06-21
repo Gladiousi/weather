@@ -25,68 +25,56 @@ export const fetchKpIndices = async (): Promise<DailyKpIndexData[]> => {
       throw new Error(`API xras.ru вернуло ошибку: ${data.error}`);
     }
 
-    const now = new Date();
-    const todayUTC = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
-
-    const yesterdayUTC = new Date(todayUTC);
-    yesterdayUTC.setUTCDate(todayUTC.getUTCDate() - 1);
-
-    const tomorrowUTC = new Date(todayUTC);
-    tomorrowUTC.setUTCDate(todayUTC.getUTCDate() + 1);
-
-    const targetDates = [
-      yesterdayUTC.toISOString().split('T')[0],
-      todayUTC.toISOString().split('T')[0],
-      tomorrowUTC.toISOString().split('T')[0]
-    ];
-
     const processedData: DailyKpIndexData[] = [];
 
-    const apiDataMap = new Map<string, XrasKpDataEntry>();
+    const now = new Date();
+    const todayLocal = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    const yesterdayLocal = new Date(todayLocal);
+    yesterdayLocal.setDate(todayLocal.getDate() - 1);
+
+    const tomorrowLocal = new Date(todayLocal);
+    tomorrowLocal.setDate(todayLocal.getDate() + 1);
+
     data.data.sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime());
 
     data.data.forEach(entry => {
-      apiDataMap.set(entry.time, entry);
-    });
-
-    targetDates.forEach((dateKey) => {
-      const entry = apiDataMap.get(dateKey);
       let maxKp = 0;
       const hourlyKpValues: Array<{ hour: string; kp: number }> = [];
       let label = '';
 
-      const entryDate = new Date(dateKey);
-      if (entryDate.toDateString() === yesterdayUTC.toDateString()) {
+      const entryDate = new Date(entry.time);
+      entryDate.setHours(0, 0, 0, 0);
+
+      if (entryDate.toDateString() === yesterdayLocal.toDateString()) {
         label = 'Вчера';
-      } else if (entryDate.toDateString() === todayUTC.toDateString()) {
+      } else if (entryDate.toDateString() === todayLocal.toDateString()) {
         label = 'Сегодня';
-      } else if (entryDate.toDateString() === tomorrowUTC.toDateString()) {
+      } else if (entryDate.toDateString() === tomorrowLocal.toDateString()) {
         label = 'Завтра';
       } else {
-        label = dateKey;
+        label = entryDate.toLocaleDateString("ru-RU", { day: 'numeric', month: 'long' });
       }
 
-      if (entry) {
-        maxKp = parseFloat(entry.max_kp || '0');
-        if (isNaN(maxKp)) maxKp = 0;
+      maxKp = parseFloat(entry.max_kp || '0');
+      if (isNaN(maxKp)) maxKp = 0;
 
-        for (let i = 0; i <= 21; i += 3) {
-          const hourKey = `h${String(i).padStart(2, '0')}` as keyof XrasKpDataEntry;
-          const kpValue = parseFloat(String(entry[hourKey]));
-          if (!isNaN(kpValue)) {
-            hourlyKpValues.push({ hour: `${String(i).padStart(2, '0')}:00`, kp: kpValue });
-          }
+      for (let i = 0; i <= 21; i += 3) {
+        const hourKey = `h${String(i).padStart(2, '0')}` as keyof XrasKpDataEntry;
+        const kpValue = parseFloat(String(entry[hourKey]));
+        if (!isNaN(kpValue)) {
+          hourlyKpValues.push({ hour: `${String(i).padStart(2, '0')}:00`, kp: kpValue });
         }
       }
 
       processedData.push({
-        date: dateKey,
+        date: entry.time,
         label: label,
         maxKp: maxKp,
         hourlyKpValues: hourlyKpValues
       });
     });
-
+    
     cachedKpData = processedData;
     lastFetchTime = Date.now();
 
