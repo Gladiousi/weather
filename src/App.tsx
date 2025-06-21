@@ -21,7 +21,7 @@ const App = () => {
   return (
     <div className={` flex justify-center items-center min-h-screen ${backgroundClass} p-4 sm:p-6 `}>
       <div className="w-full max-w-md text-black bg-white/50 backdrop-blur-xl rounded-2xl shadow-2xl p-4 sm:p-6 transition-all duration-300 hover:shadow-3xl ">
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4 sm:mb-6 text-center">Погода</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4 sm:mb-6 text-center">Погода</h2><a href="https://xras.ru/magnetic_storms.html" target="_blank"><div className="absolute text-indigo-700 px-3 py-1 rounded-lg top-2 right-[25%] opacity-70">new</div></a>
         <WeatherForm city={city} setCity={setCity} handleSubmit={handleSubmit} isLoading={isLoading} />
         <WeatherTabs activeTab={activeTab} setActiveTab={setActiveTab} />
         {error && (
@@ -36,7 +36,8 @@ const App = () => {
 
         {!weather && !hourlyForecast && !error && !isLoading && activeTab !== "solarActivity" && (
           <p className="text-gray-600 text-center text-sm sm:text-base mb-4 animate-fade-in">
-            Введите город, чтобы узнать погоду
+            Введите город, чтобы узнать погоду <br />
+            А если хотите узнать более точный <br /> прогноз магнитных бурь - смотрите подсказку
           </p>
         )}
       </div>

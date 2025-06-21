@@ -47,3 +47,38 @@ export interface WeatherTabsProps {
   activeTab: "current" | "hourly" | "fiveDay" | "solarActivity"; 
   setActiveTab: (tab: "current" | "hourly" | "fiveDay" | "solarActivity") => void; 
 }
+
+interface OpenMeteoKpHourly {
+  time: string[]; 
+  kp_index: (number | null)[]; 
+}
+
+export interface OpenMeteoKpResponse {
+  latitude: number;
+  longitude: number;
+  generationtime_ms: number;
+  utc_offset_seconds: number;
+  timezone: string;
+  timezone_abbreviation: string;
+  elevation: number;
+  hourly_units: {
+    time: string;
+    kp_index: string;
+  };
+  hourly: OpenMeteoKpHourly;
+}
+
+export interface DailyKpIndexData {
+  date: string; 
+  label: string; 
+  maxKp: number; 
+  hourlyKpValues: Array<{ hour: string; kp: number }>; 
+}
+
+export interface GeomagneticStormsProps {
+  dailyKpData: DailyKpIndexData[];
+}
+
+export interface SolarActivityData {
+  dailyKpIndices: DailyKpIndexData[];
+}

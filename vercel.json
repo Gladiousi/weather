@@ -3,6 +3,14 @@
     {
       "source": "/api/xras/:path*",
       "destination": "https://xras.ru/:path*"
+    },
+    {
+      "source": "/api/weather/:match*",
+      "destination": "https://api.openweathermap.org/data/2.5/:match*"
+    },
+    {
+      "source": "/api/forecast/:match*",
+      "destination": "https://api.openweathermap.org/data/2.5/:match*"
     }
   ]
 }
