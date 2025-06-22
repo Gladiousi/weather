@@ -1,4 +1,3 @@
-import React from "react";
 import { CurrentWeatherProps } from "../interface/weatherApi";
 import { WiThermometer, WiHumidity, WiBarometer, WiStrongWind,  } from "react-icons/wi";
 import { convertPressureToMmHg, getTooltip, getWeatherIcon, getCurrentTimeForTimezone } from "../utils/weatherUtils"; 
