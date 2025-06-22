@@ -11,7 +11,7 @@ import {
 } from "recharts";
 
 export const HourlyForecast = ({ hourlyForecast }: HourlyForecastProps) => {
-  const forecastData = get24HourForecast(hourlyForecast).map((item) => ({
+  const forecastData = get24HourForecast(hourlyForecast).map((item: any) => ({
     time: new Date(item.dt * 1000).toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" }),
     temp: Math.round(item.main.temp),
     weather: item.weather[0].description,
@@ -76,7 +76,7 @@ export const HourlyForecast = ({ hourlyForecast }: HourlyForecastProps) => {
         </ResponsiveContainer>
       </div>
       <div className="flex overflow-x-auto gap-3 sm:gap-4 pb-4 snap-x snap-mandatory container-scroll">
-        {forecastData.map((item, index) => {
+        {forecastData.map((item: any, index: any) => {
           const WeatherIcon = getWeatherIcon(item.icon);
           return (
             <div

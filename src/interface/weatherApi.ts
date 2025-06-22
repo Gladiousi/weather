@@ -17,6 +17,7 @@ interface WeatherData {
   wind: {
     speed: number;
   };
+  timezone: number;
 }
 
 interface HourlyForecastData {
@@ -68,8 +69,17 @@ interface WeatherFormProps {
 }
 
 interface WeatherTabsProps {
-  activeTab: "current" | "hourly" | "fiveDay";
-  setActiveTab: (tab: "current" | "hourly" | "fiveDay") => void;
+  activeTab: "current" | "hourly" | "fiveDay" | "solarActivity";
+  setActiveTab: (tab: "current" | "hourly" | "fiveDay" | "solarActivity") => void;
 }
 
-export type { WeatherData, HourlyForecastData, CacheData, CurrentWeatherProps, WeatherFormProps, FiveDayForecastProps, HourlyForecastProps, WeatherTabsProps }
+export type { 
+  WeatherData, 
+  HourlyForecastData, 
+  CacheData, 
+  CurrentWeatherProps, 
+  WeatherFormProps, 
+  FiveDayForecastProps, 
+  HourlyForecastProps, 
+  WeatherTabsProps 
+}
