@@ -25,6 +25,18 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api\/forecast/, ''),
         secure: false,
       },
+      '/api/geocoding': {
+        target: 'http://api.openweathermap.org/geo/1.0', 
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/geocoding/, ''),
+        secure: false, 
+      },
+      '/api/swpc': {
+        target: 'https://services.swpc.noaa.gov',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/swpc/, ''),
+        secure: true,
+      },
     },
   }
 })

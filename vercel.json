@@ -5,12 +5,20 @@
       "destination": "https://xras.ru/:path*"
     },
     {
-      "source": "/api/weather/:match*",
-      "destination": "https://api.openweathermap.org/data/2.5/:match*"
+      "source": "/api/weather/:path*",
+      "destination": "https://api.openweathermap.org/data/2.5/:path*"
     },
     {
-      "source": "/api/forecast/:match*",
-      "destination": "https://api.openweathermap.org/data/2.5/:match*"
+      "source": "/api/forecast/:path*",
+      "destination": "https://api.openweathermap.org/data/2.5/:path*"
+    },
+    {
+      "source": "/api/geocoding/:path*",
+      "destination": "http://api.openweathermap.org/geo/1.0/:path*"
+    },
+    {
+      "source": "/api/swpc/:path*",
+      "destination": "https://services.swpc.noaa.gov/:path*"
     }
   ]
 }
